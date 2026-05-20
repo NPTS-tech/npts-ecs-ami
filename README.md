@@ -13,7 +13,8 @@ It will create a private AMI in whatever account you are running it in.
 2. Make the recipe that you want, REGION must be specified. Options are: al2, al2arm, al2gpu, al2keplergpu, al2inf,
 al2kernel5dot10, al2kernel5dot10arm, al2kernel5dot10gpu, al2kernel5dot10inf, al2023, al2023arm, al2023neu, al2023gpu.
 ```
-REGION=us-west-2 make al2023
+# Run this to create the AMI for NPTS, should take around 10 minutes.
+REGION=us-east-2 make al2023arm
 ```
 
 **NOTE**: `al2keplergpu` is a build recipe that this package supports to build ECS-Optimized GPU AMIs for instances with GPUs
