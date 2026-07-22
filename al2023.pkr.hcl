@@ -169,6 +169,16 @@ build {
     ]
   }
 
+  ### Reboot barrier: wait until the rebooted instance is reachable before
+  ### running any provisioner below, so none of them reuse the dying pre-reboot session.
+  provisioner "shell" {
+    pause_before        = "30s"
+    start_retry_timeout = "5m"
+    inline = [
+      "echo 'instance back up after reboot:' && uptime"
+    ]
+  }
+
   provisioner "file" {
     sources = [
       "scripts/al2023/neuron/neuron-inf1-downgrade.sh",
@@ -194,7 +204,8 @@ build {
       "scripts/al2023/gpu/nvidia-kmod-load.service",
       "scripts/al2023/gpu/nvidia-kmod-load.sh",
       "scripts/al2023/gpu/set-nvidia-clocks",
-      "scripts/al2023/gpu/set-nvidia-clocks.service"
+      "scripts/al2023/gpu/set-nvidia-clocks.service",
+      "scripts/al2023/gpu/nvidia-mps.service"
     ]
     destination = "/tmp/"
     only        = ["amazon-ebs.al2023gpu"]
@@ -217,6 +228,15 @@ build {
       "scripts/al2023/gpu/install-nvidia-driver.sh",
       "scripts/al2023/gpu/enable-ecs-agent-gpu-support-al2023.sh"
     ]
+  }
+
+  provisioner "shell" {
+    environment_vars = [
+      "DCGM_VERSION=${var.dcgm_version_al2023}",
+      "AIR_GAPPED=${var.air_gapped}"
+    ]
+    script = "scripts/al2023/gpu/install-dcgm.sh"
+    only   = ["amazon-ebs.al2023gpu"]
   }
 
   provisioner "shell" {

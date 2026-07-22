@@ -48,7 +48,7 @@ variable "block_device_size_gb" {
 variable "ecs_agent_version" {
   type        = string
   description = "ECS agent version to build AMI with."
-  default     = "1.103.1"
+  default     = "1.105.1"
 }
 
 variable "ecs_init_rev" {
@@ -60,42 +60,42 @@ variable "ecs_init_rev" {
 variable "docker_version" {
   type        = string
   description = "Docker version to build AMI with."
-  default     = "25.0.14"
+  default     = "25.0.16"
 }
 
 variable "containerd_version" {
   type        = string
   description = "Containerd version to build AMI with."
-  default     = "2.1.7"
+  default     = "2.1.9"
 }
 
 variable "runc_version" {
   type        = string
   description = "Runc version to build AMI with."
-  default     = "1.3.4"
+  default     = "1.3.5"
 }
 
 variable "docker_version_al2023" {
   type        = string
   description = "Docker version to build AL2023 AMI with."
-  default     = "25.0.14"
+  default     = "25.0.16"
 }
 
 variable "containerd_version_al2023" {
   type        = string
   description = "Containerd version to build AL2023 AMI with."
-  default     = "2.2.3"
+  default     = "2.2.5"
 }
 
 variable "runc_version_al2023" {
   type        = string
   description = "Runc version to build AL2023 AMI with."
-  default     = "1.3.4"
+  default     = "1.3.5"
 }
 
 variable "exec_ssm_version" {
   type        = string
-  default     = "3.3.4108.0"
+  default     = "3.3.4624.0"
   description = "SSM binary version to build ECS exec support with."
 }
 
@@ -263,4 +263,10 @@ variable "nvidia_driver_major_al2023" {
   type        = string
   description = "Pinned NVIDIA driver major version for AL2023 GPU AMIs. Only driver versions within this major will be installed."
   default     = "580"
+}
+
+variable "dcgm_version_al2023" {
+  type        = string
+  description = "DCGM major version for AL2023 GPU AMIs. Used to install the datacenter-gpu-manager-4-core package."
+  default     = "4"
 }
